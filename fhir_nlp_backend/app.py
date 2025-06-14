@@ -182,6 +182,7 @@ def filter_suggestions():
 
 # Run the Flask app
 if __name__ == '__main__':
-    port = 8000  # Use port 8000 to avoid conflicts with AirPlay on macOS
-    print(f"Flask server running on http://127.0.0.1:{port}")
-    app.run(debug=True, host='0.0.0.0', port=port)  # Listen on all network interfaces
+    import os
+    port = int(os.environ.get('PORT', 8000))  # Use Render's PORT or default to 8000
+    print(f"Flask server running on port {port}")
+    app.run(debug=False, host='0.0.0.0', port=port)  # Set debug=False for production
