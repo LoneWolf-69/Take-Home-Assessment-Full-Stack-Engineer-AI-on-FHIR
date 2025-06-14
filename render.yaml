@@ -1,0 +1,23 @@
+services:
+  - type: web
+    name: fhir-query-backend
+    env: python
+    buildCommand: cd fhir_nlp_backend && pip install -r requirements.txt
+    startCommand: cd fhir_nlp_backend && uvicorn app:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: PYTHONPATH
+        value: .
+      - key: OPENAI_API_KEY
+        sync: false
+
+  - type: web
+    name: fhir-query-frontend
+    env: node
+    buildCommand: cd fhir-query-ui && npm install && npm run build
+    startCommand: cd fhir-query-ui && npm start
+    envVars:
+      - key: NEXT_PUBLIC_API_URL
+        fromService:
+          type: web
+          name: fhir-query-backend
+          property: url
