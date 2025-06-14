@@ -5,3 +5,8 @@ python-multipart
 pydantic
 requests
 python-dotenv
+spacy
+nltk
+pandas
+numpy
+scikit-learn
