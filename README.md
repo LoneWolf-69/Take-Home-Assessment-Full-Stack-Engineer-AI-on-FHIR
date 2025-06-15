@@ -1,107 +1,52 @@
 # FHIR AI Query System - Full Stack Healthcare Application
 
-> **A sophisticated AI-powered healthcare data querying tool that converts natural language into FHIR-compliant API requests**
+> **AI-powered healthcare data querying tool that converts natural language into FHIR-compliant API requests**
 
-## 🎯 Project Overview
+[![Live Demo]](https://fhir-ai-query-bufdn81cl-lonewolf-69s-projects.vercel.app)
+[![Backend API]](https://fhir-query-backend.onrender.com)
 
-This project demonstrates my ability to build production-ready healthcare applications by creating an intelligent FHIR (Fast Healthcare Interoperability Resources) data querying system. The application allows healthcare professionals to query patient data using natural language, automatically converting their requests into structured FHIR API calls.
+## 🎯 Overview
 
-**Live Demo**: [https://fhir-ai-query-bufdn81cl-lonewolf-69s-projects.vercel.app]
+This project demonstrates production-ready healthcare application development by creating an intelligent FHIR data querying system. Healthcare professionals can query patient data using natural language, automatically converted into structured FHIR API calls.
 
-## 🚀 Key Achievements
+**🌟 Live Demo**: [https://fhir-ai-query-bufdn81cl-lonewolf-69s-projects.vercel.app](https://fhir-ai-query-bufdn81cl-lonewolf-69s-projects.vercel.app)
 
-✅ **Full-Stack Development**: Built complete end-to-end application  
-✅ **AI/NLP Integration**: Implemented sophisticated natural language processing  
-✅ **Healthcare Standards**: FHIR-compliant data handling and API design  
-✅ **Production Deployment**: Successfully deployed on cloud platforms  
-✅ **Modern Tech Stack**: Used industry-standard technologies and best practices  
+## 🚀 Key Features
 
-## 🛠️ Technical Implementation
+✅ **Full-Stack Development**: Complete end-to-end application  
+✅ **AI/NLP Integration**: spaCy + OpenAI for medical query processing  
+✅ **FHIR Compliance**: Healthcare standards-compliant data handling  
+✅ **Production Deployment**: Cloud-hosted on Vercel + Render  
+✅ **Modern Tech Stack**: Next.js 14, Python 3.13, TypeScript  
 
-# FHIR AI Query System - Full Stack Healthcare Application
+## 🏗️ Architecture
 
-> **A sophisticated AI-powered healthcare data querying tool that converts natural language into FHIR-compliant API requests**
+```
+Frontend (Next.js) ◄──── API Calls ────► Backend (Python/Flask)
+• Search UI                              • NLP Processing
+• Data Visualization                     • FHIR Mapping
+• Interactive Filters                    • OpenAI Integration
+• Charts & Tables                        • Patient Simulation
+```
 
-## 🎯 Project Overview
+## 🛠️ Part 1: Backend & NLP (Python)
 
-This project demonstrates my ability to build production-ready healthcare applications by creating an intelligent FHIR (Fast Healthcare Interoperability Resources) data querying system. The application allows healthcare professionals to query patient data using natural language, automatically converting their requests into structured FHIR API calls.
+**Technologies**: Python 3.13, Flask, spaCy, OpenAI API, Pydantic
 
-**Live Demo**: [https://fhir-ai-query-bufdn81cl-lonewolf-69s-projects.vercel.app]
-
-## 🚀 Key Achievements
-
-✅ **Full-Stack Development**: Built complete end-to-end application  
-✅ **AI/NLP Integration**: Implemented sophisticated natural language processing  
-✅ **Healthcare Standards**: FHIR-compliant data handling and API design  
-✅ **Production Deployment**: Successfully deployed on cloud platforms  
-✅ **Modern Tech Stack**: Used industry-standard technologies and best practices  
-
-## 🛠️ Technical Implementation
-
-### Part 1: Backend & NLP Integration (Python)
-
-**Task Overview:**
-Build a Python-based service that accepts natural language input (e.g., "Show me all diabetic patients over 50") and converts it into a simulated FHIR API request.
-
-**Requirements Implemented:**
-- ✅ **NLP Library Integration**: Used spaCy for entity extraction and intent recognition
-- ✅ **FHIR API Simulation**: Created Patient and Condition resource mappings
-- ✅ **Example Mappings**: Provided comprehensive input/output examples
-
-How To Run:
-# Clone repository
-git clone <[repository-url](https://github.com/LoneWolf-69/Take-Home-Assessment-Full-Stack-Engineer-AI-on-FHIR.git)>
+### Quick Start:
+```bash
 cd fhir_nlp_backend
-
-# Create virtual environment
-python3 -m venv venv
-source venv/bin/activate
-# If you are using the Fish Shell
-source venv/bin/activate.fish
-
-# Install dependencies
+python3 -m venv venv && source venv/bin/activate
 pip install -r requirements.txt
 python -m spacy download en_core_web_sm
-
-# Run the application
-python fhir_query_builder.py
-# To connect with the frontend and run the queries on next.js screen
+export OPENAI_API_KEY="your-key"  # Optional
 python app.py
+```
 
-**What I Built:**
-- Python Flask API service with advanced NLP capabilities
-- Intelligent query parser using spaCy and OpenAI GPT models
-- FHIR-compliant data structure simulation
-- RESTful API with comprehensive error handling
-
-**Technologies Used:**
-- **Python 3.13** with Flask framework
-- **spaCy NLP** with medical entity recognition (`en_core_web_sm` model)
-- **OpenAI API** for enhanced query understanding
-- **Pydantic** for data validation
-- **CORS** for cross-origin requests
-
-**NLP Entity Extraction Process:**
-```python
-# Natural Language Processing Pipeline
-1. Text preprocessing and tokenization
-2. Medical entity recognition (conditions, age, gender)
-3. Intent classification (search, filter, find)
-4. Parameter extraction (age ranges, medical codes)
-5. FHIR query construction
-
-Example 1: Age and Condition Query
+### Example Query Processing:
+```json
 Input: "Show me all diabetic patients over 50"
-
-NLP Extraction:
-- Intent: "search"
-- Condition: "diabetes" → SNOMED: 44054006
-- Age Filter: ">50" → birthdate: "le1974-01-01"
-- Resource: "Patient"
-
-FHIR Output:
-{
-  "query": "Show me all diabetic patients over 50",
+Output: {
   "fhir_request": "https://fhir.example.com/r4/Patient?birthdate=le1974-01-01&_has:Condition:patient:code=44054006",
   "parameters": {
     "age_filter": ">50",
@@ -109,61 +54,99 @@ FHIR Output:
     "snomed_code": "44054006"
   }
 }
+```
 
-Example 2: Gender-Specific Query
-Input: "Find female patients with hypertension"
+### API Endpoints:
+- `POST /query` - Convert natural language to FHIR
+- `POST /patients` - Get patient data from FHIR request
+- `GET /suggestions` - Query suggestions
+- `GET /health` - Health check
 
-NLP Extraction:
-- Intent: "find"
-- Gender: "female"
-- Condition: "hypertension" → SNOMED: 38341003
-- Resource: "Patient"
+## 🎨 Part 2: Frontend UI (React/Next.js)
 
-FHIR Output:
-{
-  "query": "Find female patients with hypertension",
-  "fhir_request": "https://fhir.example.com/r4/Patient?gender=female&_has:Condition:patient:code=38341003",
-  "parameters": {
-    "gender": "female",
-    "condition": "hypertension",
-    "snomed_code": "38341003"
-  }
-}
+**Technologies**: Next.js 14, TypeScript, Chart.js, Tailwind CSS, Axios
+
+### Features:
+🔍 **Smart Search**: Real-time suggestions, input validation  
+📊 **Data Visualization**: Gender/condition distribution charts  
+📋 **Patient Management**: Sortable tables with pagination  
+🌐 **UX**: Responsive design, multilingual support (EN/ES), offline fallback 
+
+### Quick Start:
+```bash
+cd fhir-query-ui
+npm install
+echo "NEXT_PUBLIC_API_URL=https://fhir-query-backend.onrender.com" > .env.local
+npm run dev
+```
+
+### Part 3: Security & Compliance (HIPAA)
+
+**Task Overview:**
+Write a technical document on ensuring HIPAA compliance and secure FHIR data handling.
+
+**📋 Deliverable**: [Security & Compliance.pdf]
+
+## 🚀 Deployment
+
+### Production URLs:
+- **Frontend**: [https://fhir-ai-query-bufdn81cl-lonewolf-69s-projects.vercel.app]
+- **Backend API**: [https://fhir-query-backend.onrender.com]
+
+### Deployment Commands:
+
+```bash
+# Backend (Render)
+git push origin main  # Auto-deploys via GitHub integration
+
+# Frontend (Vercel)
+npm run build
+vercel --prod
+```
+
+## 🔧 Technology Stack
+
+| Component | Technology | Purpose |
+|-----------|------------|---------|
+| **Backend** | Python 3.13 + Flask | API service and NLP processing |
+| **NLP** | spaCy + OpenAI API | Medical entity extraction |
+| **Frontend** | Next.js 14 + TypeScript | Modern React application |
+| **Styling** | Tailwind CSS | Responsive design |
+| **Charts** | Chart.js | Data visualization |
+| **API Client** | Axios | HTTP requests |
+| **Deployment** | Vercel + Render | Cloud hosting |
+| **Version Control** | GitHub | Source code management |
+
+## 📝 Notes & Future Improvements
+
+### 🎯 Focus of This Implementation
+
+My primary focus for this assessment was on creating a robust, end-to-end user experience that seamlessly integrates a sophisticated NLP backend with a polished, modern frontend. Emphasis was placed on clean architecture, comprehensive functionality, and adherence to the core requirements of all three parts of the assessment.
+
+### 🚀 Potential Improvements with More Time
+
+Given additional time, I would pursue the following enhancements to further elevate the project to a production-grade enterprise application:
+
+🐳 **Containerization**: Implement Docker and Docker Compose to containerize both the frontend and backend services. This would streamline the development setup, guarantee environment consistency, and simplify production deployment.
+
+🧠 **Advanced NLP & Intent Handling**: While spaCy's rule-based matching is effective, I would integrate a transformer-based model (like BioBERT) or a Large Language Model (LLM) to handle more complex and ambiguous queries, such as those involving date ranges, symptom descriptions, or medication history.
+
+⚡ **Comprehensive State Management**: For the frontend, I would introduce a dedicated state management library like Zustand or Redux Toolkit to more formally manage API state, caching, and complex UI interactions, especially as the application scales.
+
+🌍 **Enhanced Internationalization (i18n)**: Fully implement multi-language support on the frontend using a library like react-i18next, providing translated interfaces for global accessibility beyond the current English/Spanish support.
+
+🔄 **CI/CD Pipeline**: Establish a continuous integration and deployment pipeline using GitHub Actions to automate testing, linting, and deployments to Vercel and a production backend service.
+
+🔒 **Real FHIR Integration**: Connect to actual FHIR servers (like HAPI FHIR) instead of simulated data, implementing proper authentication and real patient data handling.
+
+📊 **Advanced Analytics**: Add more sophisticated data visualization options, export capabilities, and dashboard features for healthcare administrators.
 
 
-### Part 2: Frontend UI (React/Next.js)
+This project was built as a take-home assessment demonstrating full-stack development capabilities in the healthcare AI domain. The implementation showcases:
 
-**What I Built:**
-- Modern, responsive React application using Next.js 14
-- Intelligent search interface with auto-complete
-- Interactive data visualizations and comprehensive filtering
-- Multilingual support (English/Spanish)
+- **Modern Development Practices**: TypeScript, RESTful APIs, responsive design
+- **Healthcare Standards**: FHIR compliance, HIPAA security considerations  
+- **AI Integration**: Natural language processing with medical terminology
+- **Production Readiness**: Deployed services, error handling, fallback systems
 
-**Technologies Used:**
-- **Next.js 14** with TypeScript
-- **Material-UI (MUI)** for professional UI components
-- **Chart.js** for interactive data visualization
-- **Tailwind CSS** for responsive design
-- **Axios** for API integration
-
-**Key Features:**
-
-🔍 **Smart Search Interface**
-- Real-time query suggestions
-- Input validation and error handling
-- Search history tracking
-
-📊 **Data Visualization**
-- Gender distribution bar charts
-- Condition prevalence analytics
-- Interactive filtering system
-
-📋 **Patient Management**
-- Comprehensive patient data table
-- Sortable columns with pagination
-- Age range and condition filters
-
-🌐 **User Experience**
-- Responsive design for all devices
-- Loading states and error handling
-- Multilingual interface support
+*This application demonstrates the potential of AI-powered tools to make healthcare data more accessible and actionable for medical professionals.*
